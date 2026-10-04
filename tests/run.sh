@@ -45,6 +45,11 @@ if hits=$(grep -rn "$(printf '\342\200\224')" --exclude=banned-patterns --exclud
   bad "em dashes found"
 fi
 
+step "this repo's installed hooks match the template"
+for f in template/.claude/hooks/*.sh; do
+  cmp -s "$f" ".claude/hooks/$(basename "$f")" || bad ".claude/hooks/$(basename "$f") differs from $f (run: cp template/.claude/hooks/*.sh .claude/hooks/)"
+done
+
 step "hook self-test"
 bash template/.claude/hooks/selftest.sh || bad "selftest"
 

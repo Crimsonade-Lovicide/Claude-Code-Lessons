@@ -209,7 +209,7 @@ docs/specs/conflict-check.md. Don't write any code yet.</code></pre></div>
   <p class="thesis">CLAUDE.md is the onboarding doc a new senior engineer would need on day one, written for a reader with perfect recall and no common sense about your project.</p>
   <p><span class="badge b-doc">Documented</span>Claude loads, in layers: your user file <code>~/.claude/CLAUDE.md</code> (all projects), the project's <code>CLAUDE.md</code> (commit it), and <code>CLAUDE.md</code> files in subdirectories, which load when Claude works in that directory. <code>@path</code> imports another file. <code>/init</code> drafts one from your codebase. <code>/memory</code> opens the files for editing. Claude also keeps an auto memory of things it learns, which <code>/memory</code> shows you.</p>
 
-  <div class="code"><div class="fname">CLAUDE.md · illustrative; swap in your real commands</div><pre><code># KAY 2.0
+  <div class="code"><div class="fname">CLAUDE.md · illustrative; swap in your real commands</div><pre><code># Intake App
 
 ## Commands
 - Dev server: `npm run dev`
@@ -416,8 +416,8 @@ claude mcp list</code></pre></div>
 claude --worktree billing-refactor
 
 <span class="c"># Or by hand, which works everywhere</span>
-git worktree add ../kay-billing -b feat/billing-refactor
-cd ../kay-billing &amp;&amp; claude</code></pre></div>
+git worktree add ../app-billing -b feat/billing-refactor
+cd ../app-billing &amp;&amp; claude</code></pre></div>
   <p>Each worktree is a separate checkout on its own branch: one agent refactors billing while another writes tests for intake, with no shared files.</p>
   <h3>Background and cloud</h3>
   <ul>
@@ -528,7 +528,7 @@ for await (const msg of query({
 <section id="path">
   <div class="layer-tag">EXECUTION PLAN</div>
   <h2>A four-week path to expert</h2>
-  <p class="thesis">Ordered by leverage. Each week builds on the one before. Expect roughly 2–3 hours of deliberate practice per week on top of your real work, using your real repos.</p>
+  <p class="thesis">Ordered by leverage. Each week builds on the one before. Expect roughly 2 to 3 hours of deliberate practice per week on top of your real work, using your real repos.</p>
   <div class="weeks">
     <div class="week"><h4>Week 1 · Context</h4>
       <ul><li>Prune CLAUDE.md in your main repo</li><li>Plan mode and the interview → spec habit</li><li>Rewind instead of correcting</li><li><code>/context</code>, <code>/compact</code>, <code>/clear</code></li></ul>

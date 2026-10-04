@@ -1,0 +1,13 @@
+# Paths Claude may not edit (enforced by hooks/protect-paths.sh, before the edit happens).
+# One pattern per line, last match wins. See template/.claude/protected-paths for the syntax.
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# This repo's own hooks are installed copies of template/.claude/hooks.
+# Edit the template, then sync with: cp template/.claude/hooks/*.sh .claude/hooks/
+.claude/hooks/*

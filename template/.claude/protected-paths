@@ -1,0 +1,25 @@
+# Paths Claude may not edit (enforced by hooks/protect-paths.sh, before the edit happens).
+# One pattern per line, last match wins:
+#   pattern            block matching paths
+#   !pattern           exception to an earlier rule
+#   existing:pattern   block edits to files that already exist; creating new files is fine
+# A pattern without "/" matches the file name anywhere in the repo.
+# A pattern with "/" matches the path from the repo root. "*" also matches "/".
+
+# Secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+*/secrets/*
+
+# Lockfiles change only through the package manager
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Applied migrations are history. Add a new migration instead of editing an old one.
+existing:supabase/migrations/*
+existing:migrations/*

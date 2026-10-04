@@ -19,7 +19,7 @@ cd Claude-Code-Lessons
 
 Then, in the target repo:
 
-1. `bash .claude/hooks/selftest.sh` (30 checks, about 5 seconds)
+1. `bash .claude/hooks/selftest.sh` (31 checks, a few seconds)
 2. Open Claude Code there and run `/setup-kit`. Claude reads the repo, fills in `CLAUDE.md`, and tunes test commands, protected paths and permissions.
 3. Review the diff and commit `.claude/` and `CLAUDE.md` so every session (yours, cloud, CI) gets the same setup.
 
@@ -77,6 +77,8 @@ Hooks run automatically with your user permissions. Read any hook before you add
 - Keep the gate fast. If your full suite takes minutes, point `KIT_TEST_CMD` at the unit tests and leave the rest to CI.
 
 ## Develop
+
+This repo runs the kit on itself: see `.claude/` and `CLAUDE.md` at the root. Change hooks in `template/.claude/hooks/`, then sync them with `cp template/.claude/hooks/*.sh .claude/hooks/`. [SESSION-LOG.md](SESSION-LOG.md) records how this repo was built.
 
 ```bash
 bash tests/run.sh   # syntax, shellcheck, JSON, frontmatter, house style, hook self-test, installer

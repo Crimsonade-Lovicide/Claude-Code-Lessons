@@ -1,0 +1,10 @@
+# Text Claude must not write (enforced by hooks/style-guard.sh right after each edit).
+# Format: <extended regex> :: <message shown to Claude>
+# Only the newly written text is checked, so existing files are not flagged.
+
+— :: No em dashes. Use a period, comma, colon or parentheses instead.
+
+# More examples (remove the leading # to enable):
+# console\.log\( :: Use the project logger instead of console.log.
+# \b(TODO|FIXME)\b :: Do not leave TODO or FIXME. Finish it or tell the user.
+# \b(delve|seamless|leverage|robust)\b :: Plain words, please. Rewrite without this filler term.

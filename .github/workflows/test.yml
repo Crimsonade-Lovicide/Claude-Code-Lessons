@@ -1,0 +1,28 @@
+name: test
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use the system bash 3.2 and install shellcheck on macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install shellcheck
+          mkdir -p "$RUNNER_TEMP/sysbash"
+          ln -s /bin/bash "$RUNNER_TEMP/sysbash/bash"
+          echo "$RUNNER_TEMP/sysbash" >> "$GITHUB_PATH"
+      - name: Show tool versions
+        run: |
+          bash --version | head -n 1
+          jq --version
+          shellcheck --version | head -n 2
+      - name: Run kit tests
+        run: bash tests/run.sh

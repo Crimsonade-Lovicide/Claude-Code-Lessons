@@ -28,6 +28,13 @@ for cmd in $(jq -r '.hooks[][].hooks[].command' template/.claude/settings.json |
   [ -x "template/$cmd" ] || bad "settings.json references missing or non-executable $cmd"
 done
 
+step "video demo: Python syntax and episode JSON"
+for f in video/demo/*.py; do
+  python3 -m py_compile "$f" 2>/dev/null || bad "$f does not compile"
+done
+jq empty video/demo/episode.json || bad "video/demo/episode.json"
+find video/demo -name __pycache__ -type d -exec rm -rf {} + 2>/dev/null
+
 step "skill and agent frontmatter"
 for f in template/.claude/skills/*/SKILL.md template/.claude/agents/*.md; do
   head -n 1 "$f" | grep -qx -- '---' || bad "$f does not start with frontmatter"

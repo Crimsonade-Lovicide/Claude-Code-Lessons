@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../models/fonts/fonts.css">
+<link rel="stylesheet" href="common.css">
+<style>
+  .kicker { position: absolute; left: 160px; top: 420px; font: 600 30px/1 var(--mono); letter-spacing: 0.32em; color: var(--gold); }
+  .headline { position: absolute; left: 152px; top: 470px; font: 400 168px/1.02 var(--serif); color: var(--ink); white-space: nowrap; }
+  .headline span { display: inline-block; }
+  .rule { position: absolute; left: 160px; top: 700px; height: 2px; background: var(--gold); }
+  .spire { position: absolute; left: 1560px; bottom: 0; width: 2px; background: linear-gradient(to top, var(--gold), rgba(201,162,92,0)); }
+  .spire::after { content: ""; position: absolute; top: -5px; left: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 24px 6px rgba(240,200,120,0.6); }
+  .tick { position: absolute; left: 1580px; font: 400 22px/1 var(--mono); color: var(--muted); }
+</style>
+</head>
+<body>
+<div id="stage" class="stage">
+  <div class="grid" id="grid"></div>
+  <div class="spire" id="spire"></div>
+  <div class="tick" id="tick">1 MILE · 1,609 M</div>
+  <div class="kicker" id="kicker"></div>
+  <div class="headline" id="headline"></div>
+  <div class="rule" id="rule"></div>
+  <canvas id="grain" width="960" height="540"></canvas>
+</div>
+<script src="common.js"></script>
+<script>
+  let data;
+  function setup(d) {
+    data = d;
+    document.getElementById("kicker").textContent = d.kicker;
+    // One span per letter so the headline can reveal letter by letter.
+    document.getElementById("headline").innerHTML =
+      [...d.headline].map(c => `<span>${c === " " ? "&nbsp;" : c}</span>`).join("");
+  }
+  function render(t, duration) {
+    const p = (a, b) => ease(clamp((t - a) / (b - a)));
+    stagePush(t / duration);
+    document.getElementById("grid").style.opacity = 0.5 * p(0, 1.2);
+    const spire = p(0.2, 3.2);
+    document.getElementById("spire").style.height = `${spire * 960}px`;
+    const tick = document.getElementById("tick");
+    tick.style.opacity = p(2.6, 3.4);
+    tick.style.bottom = `${spire * 960 - 8}px`;
+    const k = document.getElementById("kicker");
+    k.style.opacity = p(0.6, 1.4);
+    k.style.transform = `translateY(${(1 - p(0.6, 1.4)) * 16}px)`;
+    const letters = document.querySelectorAll("#headline span");
+    letters.forEach((el, i) => {
+      const q = p(1.0 + i * 0.045, 1.6 + i * 0.045);
+      el.style.opacity = q;
+      el.style.transform = `translateY(${(1 - q) * 40}px)`;
+    });
+    document.getElementById("rule").style.width = `${p(1.8, 3.0) * 520}px`;
+    // Fade to black over the last half second so the cut to 3D lands on black.
+    document.getElementById("stage").style.filter = `brightness(${1 - p(duration - 0.5, duration)})`;
+    grain(t);
+  }
+</script>
+</body>
+</html>

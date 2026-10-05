@@ -9,6 +9,7 @@ A plain-English record of everything Claude did in the Claude Code session that 
 | The Claude Code guide | `lessons/field-manual.html` in this repo | Done |
 | The starter kit | `template/`, `user/`, `install.sh`, `tests/` in this repo | Done, tested, merged |
 | This repo using the kit on itself | `.claude/` and `CLAUDE.md` at the root of this repo | Added in pull request #2 |
+| The video course and demo pipeline | `video/` | Added in pull request #3 |
 | A trial install in KAY 2.0 | Closed pull request #18 in the private KAY repo, plus one leftover branch | Stopped at the owner's request. KAY's main code and live app were never changed. |
 
 ## What the starter kit is, in plain terms
@@ -65,6 +66,13 @@ The kit's rule files sit in `template/`, which is a box of parts for other proje
 - The default rules about lockfiles, database migrations, Supabase and Vercel are removed, since this repo has none of those.
 
 The same pull request fixes one small bug the self-install exposed: the em dash rule flagged the copy of its own rules file stored in `template/`. That copy is now exempt, and a new test covers it, bringing the self-test to 31 cases.
+
+### 6. The video course (pull request #3)
+Asked to teach programmatic video with free tools only, Claude:
+- Had a research agent check the licences of about 25 free tools against their primary sources. Five popular options turned out to be unusable for free on a monetized channel.
+- Built and ran a working pipeline in its cloud sandbox: Kokoro narration, Whisper timings, HTML motion graphics, a Blender scene, a synthesized score, an FFmpeg edit and mix, and automated QA. It rendered a finished 28-second video.
+- Reviewed its own frames at each step and fixed what it found: flat lighting, a camera inside a building, misheard captions, a frozen-frame check fooled by grain, a colliding label, and a 51 Mbps export.
+- Wrote ten lessons in `video/`, each tied to the demo code.
 
 ## Things the owner may still want to do
 - **Install the personal files on your own computer.** These are your cross-project preferences and a desktop notification for when Claude needs you. Claude cannot reach your machine from its cloud sandbox. Run: `git clone https://github.com/Crimsonade-Lovicide/Claude-Code-Lessons && cd Claude-Code-Lessons && ./install.sh --user`

@@ -4,6 +4,10 @@ A tested Claude Code setup you can drop into any repository. It covers the layer
 
 Built for TypeScript and Node monorepos (Next.js, Supabase, `node --test`), with Python support where it is cheap.
 
+## Video course
+
+[`video/`](video/README.md) teaches programmatic video with Claude Code using free tools only: Blender, FFmpeg, HTML motion graphics, free voices and music, Unreal Engine, and open AI models on free GPUs. It comes with a working demo that renders a finished, mixed, captioned 1080p video from a JSON script.
+
 ## Lessons
 
 [`lessons/field-manual.html`](lessons/field-manual.html) is the guide this kit implements: the mental model (context, authority, guarantees, concurrency), each layer with examples and a drill, the anti-patterns, and a four-week path. Download it and open it in a browser. The starter kit below is the hands-on half: install it, then work through the drills with it.

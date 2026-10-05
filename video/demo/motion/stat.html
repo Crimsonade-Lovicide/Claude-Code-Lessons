@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../models/fonts/fonts.css">
+<link rel="stylesheet" href="common.css">
+<style>
+  .baseline { position: absolute; left: 520px; right: 520px; top: 960px; height: 2px; background: var(--muted); }
+  .bar { position: absolute; bottom: 120px; width: 140px; }
+  .bar .fill { position: absolute; bottom: 0; left: 0; right: 0; }
+  .bar .value { position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; font: 600 52px/1 var(--mono); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .bar .label { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); white-space: nowrap; font: 400 26px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .half { position: absolute; left: 520px; right: 520px; height: 0; border-top: 2px dashed rgba(201,162,92,0.7); }
+  /* Short label at the right end, clear of both bars and the second bar's value. */
+  .half span { position: absolute; right: 0; top: -36px; font: 400 24px/1 var(--mono); color: var(--gold); letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+<div id="stage" class="stage">
+  <div class="grid" id="grid" style="opacity:0.35"></div>
+  <div class="half" id="half"><span>½ MILE</span></div>
+  <div class="baseline"></div>
+  <div id="bars"></div>
+  <canvas id="grain" width="960" height="540"></canvas>
+</div>
+<script src="common.js"></script>
+<script>
+  let data, maxValue;
+  const MAX_PX = 760; // tallest bar in pixels
+  function setup(d) {
+    data = d;
+    maxValue = Math.max(...d.stats.map(s => s.value));
+    const colors = ["var(--gold)", "#5d6675"];
+    document.getElementById("bars").innerHTML = d.stats.map((s, i) => `
+      <div class="bar" style="left:${690 + i * 400}px">
+        <div class="fill" id="fill${i}" style="background:${colors[i % colors.length]}"></div>
+        <div class="value" id="value${i}"></div>
+        <div class="label" style="top:calc(100% + 18px)">${s.label}</div>
+      </div>`).join("");
+    document.querySelectorAll(".bar").forEach(b => { b.style.height = `${MAX_PX}px`; b.style.bottom = "120px"; });
+  }
+  function render(t, duration) {
+    const p = (a, b) => ease(clamp((t - a) / (b - a)));
+    stagePush(t / duration);
+    data.stats.forEach((s, i) => {
+      const grow = p(0.3 + i * 0.5, 2.3 + i * 0.5);
+      const h = grow * MAX_PX * s.value / maxValue;
+      document.getElementById(`fill${i}`).style.height = `${h}px`;
+      const v = document.getElementById(`value${i}`);
+      v.style.bottom = `${h + 20}px`;
+      v.textContent = `${Math.round(grow * s.value).toLocaleString("en-US")} ${s.unit}`;
+      v.style.opacity = p(0.3 + i * 0.5, 0.8 + i * 0.5);
+    });
+    // The "half" line appears as the narrator says "about half that height".
+    const half = document.getElementById("half");
+    half.style.top = `${960 - 2 - MAX_PX / 2}px`;
+    half.style.opacity = p(3.2, 3.8);
+    document.getElementById("stage").style.filter = `brightness(${1 - p(duration - 0.4, duration)})`;
+    grain(t);
+  }
+</script>
+</body>
+</html>

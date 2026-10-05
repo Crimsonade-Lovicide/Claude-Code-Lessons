@@ -10,6 +10,7 @@ A public repo that teaches advanced Claude Code use. Two halves: `lessons/field-
 - `user/` personal files for `~/.claude`, installed with `--user`.
 - `tests/run.sh` the kit's test suite. `template/.claude/hooks/selftest.sh` is the hook self-test it calls.
 - `lessons/` the field manual, a standalone HTML page.
+- `video/` the video course (lessons 01 to 10) and `video/demo/`, a working free video pipeline. Media and models are gitignored.
 - `.claude/` this repo's own installed copy of the kit, tailored for this repo.
 - `SESSION-LOG.md` a plain-English record of how this repo was built.
 

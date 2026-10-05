@@ -1,0 +1,41 @@
+{
+  "title": "The Mile-High Tower",
+  "fps": 24,
+  "width": 1920,
+  "height": 1080,
+  "voice": "bm_george",
+  "voice_lang": "en-gb",
+  "voice_speed": 0.95,
+  "shots": [
+    {
+      "id": "S01",
+      "visual": "title",
+      "kicker": "1956 · NEVER BUILT",
+      "headline": "The Mile-High Tower",
+      "narration": "In 1956, Frank Lloyd Wright unveiled a skyscraper one mile tall."
+    },
+    {
+      "id": "S02",
+      "visual": "blender",
+      "camera": "orbit",
+      "label": "MASSING STUDY · ILLUSTRATIVE",
+      "narration": "He called it the Illinois. Five hundred and twenty-eight floors, reaching a full mile into the sky."
+    },
+    {
+      "id": "S03",
+      "visual": "stat",
+      "stats": [
+        { "label": "The Illinois", "value": 1609, "unit": "m" },
+        { "label": "Burj Khalifa", "value": 828, "unit": "m" }
+      ],
+      "narration": "The tallest building standing today is only about half that height."
+    },
+    {
+      "id": "S04",
+      "visual": "blender",
+      "camera": "rise",
+      "label": "MASSING STUDY · ILLUSTRATIVE",
+      "narration": "The Illinois was never built. This is roughly what it might have looked like."
+    }
+  ]
+}
